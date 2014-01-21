@@ -1,22 +1,24 @@
 if (!window.hotkey_initialized) {
 
-    $(document).bind('keydown', function(evt) {
+    $(document).on('keydown', function(evt) {
         if (evt.altKey) {
             switch(evt.keyCode) {
                 case 221:  //]
                     chrome.extension.sendMessage({ method:'nextTrack' });
-                    break;
+                    return false;
 
                 case 219: //[
                     chrome.extension.sendMessage({ method:'previousTrack' });
-                    break;
+                    return false;
 
                 case 80: //P
                     chrome.extension.sendMessage({ method:'toggle' });
-                    break;
+                    return false;
             }
         }
-    }, false);
+		
+		return true;
+    });
 
     window.hotkey_initialized = true;
 }
